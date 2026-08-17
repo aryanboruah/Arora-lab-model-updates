@@ -1,0 +1,600 @@
+<CompuCell3D Revision="20260214" Version="4.8.0">
+
+<Metadata>
+
+<!-- Basic properties simulation -->
+<NumberOfProcessors>1</NumberOfProcessors>
+<DebugOutputFrequency>10</DebugOutputFrequency>
+<!-- <NonParallelModule Name="Potts"/> -->
+<MCSConversionFactor DisplayName="Steps" Units="mcs">1.0</MCSConversionFactor>
+<VoxelConversionFactor DisplayName="lattice unit" Units="lu">1.0</VoxelConversionFactor>
+</Metadata>
+
+<Potts>
+
+<!-- Basic properties of CPM (GGH) algorithm -->
+<Dimensions x="800" y="500" z="1"/>
+<Steps>2000</Steps>
+<Temperature>10.0</Temperature>
+<NeighborOrder>1</NeighborOrder>
+<Boundary_x>Periodic</Boundary_x>
+
+<!-- <FluctuationAmplitude> -->
+<!-- <FluctuationAmplitudeParameters CellType="DeepStroma" FluctuationAmplitude="0"/> -->
+<!-- </FluctuationAmplitude> -->
+<!-- <Flip2DimRatio>2</Flip2DimRatio> -->
+<!-- <NeighborOrder>2</NeighborOrder> -->
+</Potts>
+
+   
+   
+   
+   
+   
+
+
+<Plugin Name="CellType">
+
+<!-- Listing all cell types in the simulation -->
+<CellType TypeId="0" TypeName="Medium"/>
+<CellType TypeId="1" TypeName="Epi"/>
+<CellType TypeId="2" TypeName="Stroma"/>
+<CellType TypeId="3" TypeName="ECM"/>
+<CellType TypeId="4" TypeName="DeepStroma"/>
+<CellType TypeId="5" TypeName="Sfstroma" />
+<CellType TypeId="6" TypeName="LMuscle" />
+<CellType TypeId="7" TypeName="CMuscle" />
+
+
+
+
+
+</Plugin>
+
+<Plugin Name="Volume">
+<VolumeEnergyParameters CellType="Epi"        LambdaVolume="2.0" TargetVolume="50"/>
+<VolumeEnergyParameters CellType="Stroma"     LambdaVolume="10.0" TargetVolume="20"/>
+<VolumeEnergyParameters CellType="ECM"        LambdaVolume="2.0" TargetVolume="50"/>
+<VolumeEnergyParameters CellType="DeepStroma" LambdaVolume="10.0" TargetVolume="20"/>  
+<VolumeEnergyParameters CellType="Sfstroma"   LambdaVolume="10.0" TargetVolume="50"/>
+<VolumeEnergyParameters CellType="LMuscle"    LambdaVolume="50.0" TargetVolume="1600"/>
+<VolumeEnergyParameters CellType="CMuscle"    LambdaVolume="30.0" TargetVolume="1600"/>
+
+
+</Plugin>
+
+<Plugin Name="Surface">
+<SurfaceEnergyParameters CellType="Epi" LambdaSurface="2.0" TargetSurface="30"/>
+<!-- <SurfaceEnergyParameters CellType="Stroma" LambdaSurface="2.0" TargetSurface="50"/> -->
+<!-- <SurfaceEnergyParameters CellType="ECM" LambdaSurface="2.0" TargetSurface="50"/> -->
+<!-- <SurfaceEnergyParameters CellType="DeepStroma" LambdaSurface="2.0" TargetSurface="50"/> -->
+<!-- <SurfaceEnergyParameters CellType="Sfstroma" LambdaSurface="2.0" TargetSurface="50"/> -->
+<!-- <SurfaceEnergyParameters CellType="LMuscle" LambdaSurface="2.0" TargetSurface="50"/> -->
+<!-- <SurfaceEnergyParameters CellType="CMuscle" LambdaSurface="2.0" TargetSurface="50"/> -->
+</Plugin>
+
+
+<Plugin Name="ExternalPotential">
+
+<!-- External force applied to cell. Each cell type has different force. --> 
+
+
+<!-- For more flexible specification of the constraint (done in Python) please use ExternalPotential plugin without specifying per-type parameters --> 
+
+
+<!-- Algorithm options are: PixelBased, CenterOfMassBased --> 
+
+
+<Algorithm>PixelBased</Algorithm>
+<!-- <ExternalPotentialParameters CellType="Epi" x="-0.5" y="0.0" z="0.0"/> -->
+<!-- <ExternalPotentialParameters CellType="Stroma" x="0" y="2.0" z="0.0"/> -->
+<!-- <ExternalPotentialParameters CellType="ECM" x="-0.5" y="0.0" z="0.0"/> -->
+</Plugin>
+
+<Plugin Name="PixelTracker">
+
+</Plugin>
+
+
+
+
+<Plugin Name="CenterOfMass">
+
+<!-- Module tracking center of mass of each cell -->
+</Plugin>
+<Plugin Name="ContactCompartment">
+
+<!-- Specification of adhesion energies in the presence of compartmental cells -->
+<!-- This plugin is deprecated - please consider using Contact and ContactInternal plugins instead -->
+<!-- to specify adhesions bewtween members of same cluster -->
+<!-- <Energy Type1="Medium" Type2="Medium">10.0</Energy> -->
+<!-- <Energy Type1="Medium" Type2="Epi">10.0</Energy> -->
+<!-- <Energy Type1="Medium" Type2="Stroma">10.0</Energy> -->
+<!-- <Energy Type1="Medium" Type2="ECM">10.0</Energy> -->
+<!-- <Energy Type1="Medium" Type2="DeepStroma">10.0</Energy> -->
+<!-- <Energy Type1="Medium" Type2="Sfstroma">10.0</Energy> -->
+<!-- <Energy Type1="Medium" Type2="LMuscle">10.0</Energy> -->
+<!-- <Energy Type1="Medium" Type2="CMuscle">10.0</Energy> -->
+<!-- <Energy Type1="Epi" Type2="Epi">10.0</Energy> -->
+<!-- <Energy Type1="Epi" Type2="Stroma">10.0</Energy> -->
+<!-- <Energy Type1="Epi" Type2="ECM">10.0</Energy> -->
+<!-- <Energy Type1="Epi" Type2="DeepStroma">10.0</Energy> -->
+<!-- <Energy Type1="Epi" Type2="Sfstroma">10.0</Energy> -->
+<!-- <Energy Type1="Epi" Type2="LMuscle">10.0</Energy> -->
+<!-- <Energy Type1="Epi" Type2="CMuscle">10.0</Energy> -->
+<!-- <Energy Type1="Stroma" Type2="Stroma">10.0</Energy> -->
+<!-- <Energy Type1="Stroma" Type2="ECM">10.0</Energy> -->
+<!-- <Energy Type1="Stroma" Type2="DeepStroma">10.0</Energy> -->
+<!-- <Energy Type1="Stroma" Type2="Sfstroma">10.0</Energy> -->
+<!-- <Energy Type1="Stroma" Type2="LMuscle">10.0</Energy> -->
+<!-- <Energy Type1="Stroma" Type2="CMuscle">10.0</Energy> -->
+<!-- <Energy Type1="ECM" Type2="ECM">10.0</Energy> -->
+<!-- <Energy Type1="ECM" Type2="DeepStroma">10.0</Energy> -->
+<!-- <Energy Type1="ECM" Type2="Sfstroma">10.0</Energy> -->
+<!-- <Energy Type1="ECM" Type2="LMuscle">10.0</Energy> -->
+<!-- <Energy Type1="ECM" Type2="CMuscle">10.0</Energy> -->
+<!-- <Energy Type1="DeepStroma" Type2="DeepStroma">10.0</Energy> -->
+<!-- <Energy Type1="DeepStroma" Type2="Sfstroma">10.0</Energy> -->
+<!-- <Energy Type1="DeepStroma" Type2="LMuscle">10.0</Energy> -->
+<!-- <Energy Type1="DeepStroma" Type2="CMuscle">10.0</Energy> -->
+<!-- <Energy Type1="Sfstroma" Type2="Sfstroma">10.0</Energy> -->
+<!-- <Energy Type1="Sfstroma" Type2="LMuscle">10.0</Energy> -->
+<!-- <Energy Type1="Sfstroma" Type2="CMuscle">10.0</Energy> -->
+<!-- <Energy Type1="LMuscle" Type2="LMuscle">10.0</Energy> -->
+<!-- <Energy Type1="LMuscle" Type2="CMuscle">10.0</Energy> -->
+<!-- <Energy Type1="CMuscle" Type2="CMuscle">10.0</Energy> -->
+<!-- <InternalEnergy Type1="Medium" Type2="Medium">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Medium" Type2="Epi">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Medium" Type2="Stroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Medium" Type2="ECM">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Medium" Type2="DeepStroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Medium" Type2="Sfstroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Medium" Type2="LMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Medium" Type2="CMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Epi" Type2="Epi">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Epi" Type2="Stroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Epi" Type2="ECM">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Epi" Type2="DeepStroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Epi" Type2="Sfstroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Epi" Type2="LMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Epi" Type2="CMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Stroma" Type2="Stroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Stroma" Type2="ECM">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Stroma" Type2="DeepStroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Stroma" Type2="Sfstroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Stroma" Type2="LMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Stroma" Type2="CMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="ECM" Type2="ECM">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="ECM" Type2="DeepStroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="ECM" Type2="Sfstroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="ECM" Type2="LMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="ECM" Type2="CMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="DeepStroma" Type2="DeepStroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="DeepStroma" Type2="Sfstroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="DeepStroma" Type2="LMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="DeepStroma" Type2="CMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Sfstroma" Type2="Sfstroma">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Sfstroma" Type2="LMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="Sfstroma" Type2="CMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="LMuscle" Type2="LMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="LMuscle" Type2="CMuscle">5.0</InternalEnergy> -->
+<!-- <InternalEnergy Type1="CMuscle" Type2="CMuscle">5.0</InternalEnergy> -->
+<NeighborOrder>1</NeighborOrder>
+</Plugin>
+
+
+<Plugin Name="NeighborTracker">
+
+<!-- Module tracking neighboring cells of each cell -->
+</Plugin>
+
+<Plugin Name="Contact">
+<!-- Specification of adhesion energies -->
+<Energy Type1="Medium" Type2="Medium">10.0</Energy>
+<Energy Type1="Medium" Type2="Epi">10.0</Energy>   
+<Energy Type1="Medium" Type2="Stroma">5.0</Energy>
+<Energy Type1="Medium" Type2="ECM">10.0</Energy>
+<Energy Type1="Medium" Type2="DeepStroma">15.0</Energy>  
+<Energy Type1="Medium" Type2="LMuscle">2.0</Energy>  
+<Energy Type1="Medium" Type2="CMuscle">2.0</Energy>  
+
+
+
+
+<Energy Type1="Epi" Type2="Epi">2.0</Energy>
+<Energy Type1="Epi" Type2="Stroma">10.0</Energy>
+<Energy Type1="Epi" Type2="ECM">5.0</Energy>
+<Energy Type1="Epi" Type2="DeepStroma">10.0</Energy>
+<Energy Type1="Epi" Type2="LMuscle">10.0</Energy>
+<Energy Type1="Epi" Type2="CMuscle">10.0</Energy>
+
+
+
+<Energy Type1="Stroma" Type2="Stroma">10.0</Energy>
+<Energy Type1="Stroma" Type2="ECM">12.0</Energy>
+<Energy Type1="Stroma" Type2="DeepStroma">20.0</Energy>  
+<Energy Type1="Stroma" Type2="LMuscle">10.0</Energy>  
+<Energy Type1="Stroma" Type2="CMuscle">10.0</Energy>  
+
+<Energy Type1="ECM"    Type2="ECM">10.0</Energy>
+<Energy Type1="ECM"    Type2="DeepStroma">10.0</Energy>
+<Energy Type1="ECM"    Type2="LMuscle">10.0</Energy>
+<Energy Type1="ECM"    Type2="CMuscle">10.0</Energy>
+
+
+<Energy Type1="DeepStroma" Type2="DeepStroma">20.0</Energy>
+<Energy Type1="LMuscle"     Type2="LMuscle"    >2.0</Energy>
+<Energy Type1="CMuscle"     Type2="LMuscle"    >10.0</Energy>
+<Energy Type1="CMuscle"     Type2="CMuscle"    >2.0</Energy>
+<Energy Type1="LMuscle"     Type2="DeepStroma" >10.0</Energy>
+<Energy Type1="CMuscle"     Type2="DeepStroma" >20.0</Energy>
+
+
+
+<Energy Type1="Sfstroma" Type2="Medium">10.0</Energy>
+<Energy Type1="Sfstroma" Type2="Sfstroma">2.0</Energy>
+<Energy Type1="Sfstroma" Type2="Epi">2.0</Energy>
+<Energy Type1="Sfstroma" Type2="ECM">5.0</Energy>
+<Energy Type1="Sfstroma" Type2="Stroma">6.0</Energy>
+<Energy Type1="Sfstroma" Type2="DeepStroma">10.0</Energy>
+<Energy Type1="Sfstroma" Type2="LMuscle">10.0</Energy>
+<Energy Type1="Sfstroma" Type2="CMuscle">10.0</Energy>
+
+
+
+
+<NeighborOrder>4</NeighborOrder>
+</Plugin>
+
+
+
+<Plugin Name="FocalPointPlasticity">
+
+<!-- &lt;!&ndash; Specification of focal point junctions &ndash;&gt;  -->
+
+
+<!-- &lt;!&ndash; We separetely specify links between members of same cluster - InternalParameters and members of different clusters Parameters. When not using compartmental  cells comment out InternalParameters specification &ndash;&gt;  -->
+
+
+<!-- &lt;!&ndash; To modify FPP links individually for each cell pair uncomment line below &ndash;&gt;  -->
+
+
+<!-- &lt;!&ndash; <Local/> &ndash;&gt;  -->
+
+
+<!-- &lt;!&ndash; Note that even though you may manipulate lambdaDistance, targetDistance and maxDistance using Python you still need to set activation energy from XML level &ndash;&gt;  -->
+
+
+<!-- &lt;!&ndash; See CC3D manual for details on FPP plugin  &ndash;&gt;  -->
+
+
+
+<Parameters Type1="Sfstroma" Type2="Stroma">
+<Lambda>10</Lambda>
+<ActivationEnergy>-50</ActivationEnergy>
+<TargetDistance>7</TargetDistance>
+<MaxDistance>20</MaxDistance>
+<MaxNumberOfJunctions NeighborOrder="6">1</MaxNumberOfJunctions>
+</Parameters>
+
+<Parameters Type1="Sfstroma" Type2="Epi">
+<Lambda>10</Lambda>
+<ActivationEnergy>-50</ActivationEnergy>
+<TargetDistance>7</TargetDistance>
+<MaxDistance>20</MaxDistance>
+<MaxNumberOfJunctions NeighborOrder="2">1</MaxNumberOfJunctions>
+</Parameters>
+
+<!-- <Parameters Type1="Medium" Type2="Stroma"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </Parameters> -->
+
+<!-- <Parameters Type1="Medium" Type2="ECM"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </Parameters> -->
+
+<Parameters Type1="Epi" Type2="Epi">
+<Lambda>50</Lambda>
+<ActivationEnergy>-50</ActivationEnergy>
+<TargetDistance>5</TargetDistance>
+<MaxDistance>20</MaxDistance>
+<MaxNumberOfJunctions NeighborOrder="2">2</MaxNumberOfJunctions>
+</Parameters>
+
+<!-- <Parameters Type1="DeepStroma" Type2="DeepStroma"> -->
+<!-- &lt;!&ndash; 30 -> 80 &ndash;&gt;  -->
+<!-- <Lambda>30</Lambda>                                                -->
+<!-- <ActivationEnergy>-50</ActivationEnergy>                                      -->
+<!-- <TargetDistance>20</TargetDistance>                                          -->
+<!-- <MaxDistance>30</MaxDistance>                                            -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">2</MaxNumberOfJunctions>              -->
+<!-- </Parameters> -->
+<!-- <Parameters Type1="Muscle" Type2="Muscle"> -->
+<!-- &lt;!&ndash; <Lambda>10</Lambda> &ndash;&gt;  -->
+
+
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- &lt;!&ndash; <TargetDistance>7</TargetDistance> &ndash;&gt;  -->
+
+
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">2</MaxNumberOfJunctions> -->
+<!-- </Parameters> -->
+
+<!-- <Parameters Type1="Epi" Type2="Stroma"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </Parameters> -->
+
+<!-- <Parameters Type1="Epi" Type2="ECM"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </Parameters> -->
+
+<Parameters Type1="CMuscle" Type2="CMuscle">
+<Lambda>10</Lambda>
+<ActivationEnergy>-50</ActivationEnergy>
+<TargetDistance>7</TargetDistance>
+<MaxDistance>20</MaxDistance>
+<MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions>
+</Parameters>
+
+<!-- <Parameters Type1="Stroma" Type2="ECM"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </Parameters> -->
+
+<Parameters Type1="ECM" Type2="ECM">
+<Lambda>10</Lambda>
+<ActivationEnergy>-50</ActivationEnergy>
+<TargetDistance>4</TargetDistance>
+<MaxDistance>20</MaxDistance>
+<MaxNumberOfJunctions NeighborOrder="1">2</MaxNumberOfJunctions>
+</Parameters>
+
+<!-- <InternalParameters Type1="Medium" Type2="Medium"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </InternalParameters> -->
+
+<InternalParameters Type1="Sfstroma" Type2="Epi">
+<Lambda>50</Lambda>
+<ActivationEnergy>-50</ActivationEnergy>
+<TargetDistance>7</TargetDistance>
+<MaxDistance>20</MaxDistance>
+<MaxNumberOfJunctions NeighborOrder="2">1</MaxNumberOfJunctions>
+</InternalParameters>
+
+<!-- <InternalParameters Type1="Medium" Type2="Stroma"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </InternalParameters> -->
+
+<!-- <InternalParameters Type1="Medium" Type2="ECM"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </InternalParameters> -->
+
+<!-- <InternalParameters Type1="Epi" Type2="Epi"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </InternalParameters> -->
+
+<InternalParameters Type1="Epi" Type2="Stroma">
+<Lambda>40</Lambda>
+<ActivationEnergy>-50</ActivationEnergy>
+<TargetDistance>7</TargetDistance>
+<MaxDistance>20</MaxDistance>
+<MaxNumberOfJunctions NeighborOrder="2">1</MaxNumberOfJunctions>
+</InternalParameters>
+
+<InternalParameters Type1="Sfstroma" Type2="Stroma">
+<Lambda>10</Lambda>
+<ActivationEnergy>-50</ActivationEnergy>
+<TargetDistance>7</TargetDistance>
+<MaxDistance>20</MaxDistance>
+<MaxNumberOfJunctions NeighborOrder="6">1</MaxNumberOfJunctions>
+</InternalParameters>
+
+<!-- <InternalParameters Type1="Stroma" Type2="Stroma"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </InternalParameters> -->
+
+<!-- <InternalParameters Type1="Stroma" Type2="ECM"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </InternalParameters> -->
+
+<!-- <InternalParameters Type1="ECM" Type2="ECM"> -->
+<!-- <Lambda>10</Lambda> -->
+<!-- <ActivationEnergy>-50</ActivationEnergy> -->
+<!-- <TargetDistance>7</TargetDistance> -->
+<!-- <MaxDistance>20</MaxDistance> -->
+<!-- <MaxNumberOfJunctions NeighborOrder="1">1</MaxNumberOfJunctions> -->
+<!-- </InternalParameters> -->
+
+<NeighborOrder>1</NeighborOrder>
+
+</Plugin>
+
+
+
+
+<Plugin Name="LengthConstraint">
+   
+   <!-- Applies elongation constraint to each cell. Users specify target length of major axis -TargetLength (in 3D additionally, target length of minor axis - MinorTargetLength) and a strength of the constraint -LambdaLength. Parameters are specified for each cell type -->
+   <!-- IMPORTANT: To prevent cell fragmentation for large elongations you need to also use connectivity constraint -->
+   <!-- LengthConstraint plugin with no body: <Plugin Name="LengthConstraint"/> permits constraint specification for individual cells -->
+   <!-- Comment out the constrains for cell types which don't need them -->
+   <!-- <LengthEnergyParameters CellType="Epi" LambdaLength="2.0" TargetLength="25"/> -->
+   <!-- <LengthEnergyParameters CellType="Stroma" LambdaLength="2.0" TargetLength="25"/> -->
+   <!-- <LengthEnergyParameters CellType="ECM" LambdaLength="2.0" TargetLength="25"/> -->
+   <!-- <LengthEnergyParameters CellType="DeepStroma" LambdaLength="2.0" TargetLength="25"/> -->
+   <!-- <LengthEnergyParameters CellType="Sfstroma" LambdaLength="2.0" TargetLength="25"/> -->
+   <!-- <LengthEnergyParameters CellType="LMuscle" LambdaLength="2.0" TargetLength="25"/> -->
+   <!-- <LengthEnergyParameters CellType="CMuscle" LambdaLength="2.0" TargetLength="25"/> -->
+</Plugin>
+
+
+
+
+
+
+<Plugin Name="Chemotaxis">
+<ChemicalField Name="EPIgrad">
+<!-- <ChemotaxisByType Type="Epi" Lambda="2.0"/> -->
+<!-- <ChemotaxisByType Type="Sfstroma" Lambda="6.0"/> -->
+</ChemicalField>
+</Plugin>
+
+
+
+
+
+<Plugin Name="Secretion">
+<Field Name="EPIgrad">
+<!-- <Secretion Type="DeepStroma">200</Secretion> -->
+<!-- <SecretionOnContact Type="Medium" SecreteOnContactWith="Bacterium">300</SecretionOnContact> -->
+<!-- <ConstantConcentration Type="Bacterium">500</ConstantConcentration> -->
+</Field>
+
+</Plugin>        
+
+
+
+
+
+
+
+
+<Steppable Type="DiffusionSolverFE">
+<DiffusionField>
+<DiffusionData>
+<FieldName>EPIgrad</FieldName>
+<DiffusionConstant>30.0</DiffusionConstant>
+<DecayConstant>0.0001</DecayConstant>
+<DiffusionCoefficient CellType="Epi">0.0</DiffusionCoefficient>            
+<DiffusionCoefficient CellType="Stroma">5.0</DiffusionCoefficient>            
+<DiffusionCoefficient CellType="Sfstroma">2.0</DiffusionCoefficient>            
+
+</DiffusionData>
+<SecretionData>
+<Secretion Type="DeepStroma">0.0</Secretion>
+</SecretionData>
+</DiffusionField>
+<!-- <DiffusionField> -->
+<!-- <DiffusionData> -->
+<!-- <FieldName>SCgrad</FieldName> -->
+<!-- <DiffusionConstant>0.10</DiffusionConstant> -->
+<!-- <DecayConstant>0.001</DecayConstant> -->
+<!-- <DiffusionCoefficient CellType="Stroma">0.0</DiffusionCoefficient>             -->
+<!-- </DiffusionData> -->
+<!-- <SecretionData> -->
+<!-- <Secretion Type="Stroma">20</Secretion> -->
+<!-- </SecretionData> -->
+<!-- </DiffusionField> -->
+</Steppable>
+
+<Steppable Type="UniformInitializer">
+
+<!-- Initial layout of cells in the form of rectangular slab -->
+
+<Region>
+<BoxMin x="0" y="50" z="0"/>
+<BoxMax x="800" y="90" z="1"/>
+<Gap>0</Gap>
+<Width>40</Width>
+<Types>LMuscle</Types>
+</Region>
+
+
+<!-- <Region> -->
+<!-- <BoxMin x="0" y="140" z="0"/> -->
+<!-- <BoxMax x="800" y="180" z="1"/> -->
+<!-- <Gap>0</Gap> -->
+<!-- <Width>40</Width> -->
+<!-- <Types>CMuscle</Types> -->
+<!-- </Region> -->
+
+<!-- <Region> -->
+<!-- <BoxMin x="0" y="180" z="0"/> -->
+<!-- <BoxMax x="1400" y="220" z="1"/> -->
+<!-- <Gap>0</Gap> -->
+<!-- <Width>7</Width> -->
+<!-- <Types>DeepStroma</Types> -->
+<!-- </Region> -->
+
+<!-- <Region> -->
+<!-- <BoxMin x="0" y="220" z="0"/> -->
+<!-- <BoxMax x="1400" y="280" z="1"/> -->
+<!-- <Gap>0</Gap> -->
+<!-- <Width>7</Width> -->
+<!-- <Types>Stroma</Types> -->
+<!-- </Region> -->
+
+<Region>
+<BoxMin x="0" y="280" z="0"/>
+<BoxMax x="800" y="294" z="1"/>
+<Gap>0</Gap>
+<Width>7</Width>
+<Types>Sfstroma</Types>
+</Region>
+
+
+<!-- <Region> -->
+<!-- <BoxMin x="0" y="294" z="0"/> -->
+<!-- <BoxMax x="1400" y="301" z="1"/> -->
+<!-- <Gap>0</Gap> -->
+<!-- <Width>7</Width> -->
+<!-- <Types>ECM</Types> -->
+<!-- </Region> -->
+
+<Region>
+<BoxMin x="0" y="294" z="0"/>
+<BoxMax x="800" y="301" z="1"/>
+<Gap>0</Gap>
+<Width>7</Width>
+<Types>Epi</Types>
+</Region>
+
+
+</Steppable>
+
+
+</CompuCell3D>  
