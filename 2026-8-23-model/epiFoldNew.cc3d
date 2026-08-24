@@ -1,0 +1,5 @@
+<Simulation version="4.8.0">
+   <XMLScript Type="XMLScript">Simulation/epiFoldNew.xml</XMLScript>
+   <PythonScript Type="PythonScript">Simulation/epiFoldNew.py</PythonScript>
+   <Resource Type="Python">Simulation/epiFoldNewSteppables.py</Resource>
+</Simulation>
